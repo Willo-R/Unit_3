@@ -8,14 +8,15 @@ color purple = #800080;
 color white = #ffffff;
 
 color currentColor;
-float thickness = 1;
-
+float thickness = 20;
+float sliderX = 270;
 
 
 
 void setup(){
   size(900,900);
   background(255);
+  currentColor = black;
 }
 
 void draw(){
@@ -58,7 +59,16 @@ void draw(){
   
   tactile(200, 110, 20);
   fill(black);
-  circle(200, 110, 40);
+  circle(200, 110, 40); 
+  
+  //slider
+  stroke(black);
+  line(250, 75, 330, 75);
+  circle(sliderX, 75, 20);
+  
+  //indicator
+  stroke(black);
+  circle(350, 75, thickness);
 }
 
 void tactile(int x, int y, int r){
@@ -71,5 +81,6 @@ void tactile(int x, int y, int r){
 }
 
 void mouseDragged(){
+  stroke(currentColor);
   line(pmouseX, pmouseY, mouseX, mouseY);
 }
