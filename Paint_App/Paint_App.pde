@@ -16,6 +16,10 @@ float sliderX = 270;
 
 PImage tennis;
 boolean tennisOn;
+PImage ironman;
+boolean ironmanOn;
+float sizeX;
+float sizeY;
 
 void setup(){
   size(900,900);
@@ -25,6 +29,8 @@ void setup(){
   stampStroke = black;
   tennis = loadImage("tennis.png");
   tennisOn = false;
+  ironman = loadImage("ironman.png");
+  ironmanOn = false;
 }
 
 void draw(){
@@ -77,6 +83,8 @@ void draw(){
   circle(sliderX, 75, 20);
   
   thickness = map(sliderX, 250, 330, 10, 35);
+  sizeX = map(sliderX, 250, 330, 20, 100);
+  sizeY = map(sliderX, 250, 330, 20, 100);
   
   //indicator
   fill(currentColor);
@@ -84,12 +92,26 @@ void draw(){
   stroke(black);
   circle(380, 75, thickness);
   
-  //stamp
+  //stamp ===========================
+  //tennis
   stroke(stampStroke);
-  stampTactile();
+  stampTactile(445, 30, 90, 90);
   fill(stampColor);
   rect(445, 30, 90, 90);
   image(tennis, 450, 35, 80, 80);
+  
+  //ironman
+  stroke(stampStroke);
+  stampTactile(560, 30, 90, 90);
+  fill(stampColor);
+  rect(560, 30, 90, 90);
+  image(ironman, 565, 35, 80, 80);
+  
+  
+  
+  //new button
+  fill(black);
+  rect(800, 60, 70, 25);
 }
 
 void tactile(float x, int y, int r){
@@ -111,8 +133,8 @@ void sliderTactile(float x, int y, int r){
   }
 }
 
-void stampTactile(){
-  if(mouseX > 445 && mouseX < 535 && mouseY > 35 && mouseY < 115){
+void stampTactile(int x, int y, int w, int h){
+  if(mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h){
     stampColor = yellow;
   }
   else{
@@ -126,31 +148,24 @@ void mouseReleased(){
   if(dist(50, 40, mouseX, mouseY) < 20){
     currentColor = red;
   }
-  
   if(dist(50, 110, mouseX, mouseY) < 20){
     currentColor = orange;
   }
-  
   if(dist(100, 40, mouseX, mouseY) < 20){
     currentColor = yellow;
   }
-  
   if(dist(100, 110, mouseX, mouseY) < 20){
     currentColor = green;
   }
-  
   if(dist(150, 40, mouseX, mouseY) < 20){
     currentColor = blue;
   }
-  
   if(dist(150, 110, mouseX, mouseY) < 20){
     currentColor = purple;
   }
-  
   if(dist(200, 40, mouseX, mouseY) < 20){
     currentColor = white;
   }
-  
   if(dist(200, 110, mouseX, mouseY) < 20){
     currentColor = black;
   }
@@ -163,20 +178,40 @@ void mouseReleased(){
   if(tennisOn == false){
     stampStroke = white;
   }
+  
+  if(tennisOn && mouseY > 150){
+    //tennis
+    image(tennis, mouseX, mouseY, sizeX, sizeY);
+    
+    //ironman button
+    if(mouseX > 445 && mouseX < 535 && mouseY > 35 && mouseY < 115){
+    ironmanOn = !ironmanOn;
+    stampStroke = red;
+  }
+  if(ironmanOn == false){
+    stampStroke = white;
+  }
+  
+  if(ironmanOn && mouseY > 150){
+    //ironman
+    image(ironman, mouseX, mouseY, sizeX, sizeY);
+  }
+  
+  //new button
  
 }
 
 void mouseDragged(){
   
   //squiggly line
-  if(tennisOn == false){
+  if(tennisOn == false && mouseY > 150){
     stroke(currentColor);
     strokeWeight(thickness-6);
     line(pmouseX, pmouseY, mouseX, mouseY);
   }
-  else{
+  if(tennisOn && mouseY > 150){
     //tennis
-    image(tennis, mouseX, mouseY, 80, 80);
+    image(tennis, mouseX, mouseY, sizeX, sizeY);
   }
   
   controlSlider();
