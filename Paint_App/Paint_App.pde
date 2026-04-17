@@ -1,6 +1,3 @@
-//ASK MR.P ABOUT LINE 270======================================
-//ALSO ASK ABOUT SETTING THE COORDINATES FOR THE LOAD BUTTON===
-
 
 color black = #000000;
 color red = #FA0000;
@@ -52,6 +49,8 @@ void setup(){
   ironmanOn = false;
   stampColor1 = white;
   stampStroke1 = black;
+  
+  //surface.setTitle("Best Sketches"
 }
 
 
@@ -105,7 +104,7 @@ void draw(){
   
   //slider==========================================================
   stroke(lightGray);
-  sliderTactile(sliderX, 75, 10);
+  sliderTactile();
   line(250, 75, 330, 75);
   circle(sliderX, 75, 20);
   
@@ -140,12 +139,15 @@ void draw(){
   //new button, load button, save button========================================================
   fill(black);
   
+  stroke(black);
   stampTactile(720, 15, 90, 28, 2);
   rect(720, 15, 90, 28);
  
+ stroke(black);
   stampTactile(720, 61, 90, 28, 2);
   rect(720, 61, 90, 28);
  
+ stroke(black);
   stampTactile(720, 107, 90, 28, 2);
   rect(720, 107, 90, 28);
   
@@ -179,8 +181,8 @@ void tactile(float x, int y, int r){
 
 
 //slider tactile========================================================
-void sliderTactile(float x, int y, int r){
-  if(dist(x, y, mouseX, mouseY) < r){
+void sliderTactile(){
+  if(mouseX > 250 && mouseX < 330 && mouseY > 65 && mouseY < 85){
     stroke(white);
     strokeWeight(3);
   }
@@ -208,7 +210,7 @@ void stampTactile(int x, int y, int w, int h, int stampNum){
   else{
     stampColor = white;
     stampColor1 = white;
-    stroke(black);
+    
   }
 }
 
@@ -267,7 +269,7 @@ void mouseReleased(){
     stampStroke1 = red;
     if(tennisOn){
       tennisOn = !tennisOn;
-      //stampStroke = black;
+      stampStroke = black;
     }
   }
   if(ironmanOn == false){
@@ -307,7 +309,7 @@ void openImage(File f){
     int n = 0;
     while(n < 10){
       PImage pic = loadImage(f.getPath());
-      image(pic, 0, 0);
+      image(pic, 200, 180);
       n = n + 1;
     }
   }
